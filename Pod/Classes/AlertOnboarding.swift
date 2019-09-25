@@ -162,8 +162,11 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
         widthForAlertView = UIScreen.main.bounds.width*percentageRatioWidth
         
         //Constraints for alertview
+        let alertCenterXConstraint = self.centerXAnchor.constraint(equalTo: superView.centerXAnchor)
+        let alertCenterYConstraint = self.centerYAnchor.constraint(equalTo: superView.centerYAnchor)
+        /*
         let horizontalContraintsAlertView = NSLayoutConstraint(item: self, attribute: .centerXWithinMargins, relatedBy: .equal, toItem: superView, attribute: .centerXWithinMargins, multiplier: 1.0, constant: 0)
-        let verticalContraintsAlertView = NSLayoutConstraint(item: self, attribute:.centerYWithinMargins, relatedBy: .equal, toItem: superView, attribute: .centerYWithinMargins, multiplier: 1.0, constant: 0)
+        let verticalContraintsAlertView = NSLayoutConstraint(item: self, attribute:.centerYWithinMargins, relatedBy: .equal, toItem: superView, attribute: .centerYWithinMargins, multiplier: 1.0, constant: 0) */
         let heightConstraintForAlertView = NSLayoutConstraint.init(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: heightForAlertView)
         let widthConstraintForAlertView = NSLayoutConstraint.init(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: widthForAlertView)
         
@@ -184,7 +187,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
         let widthContraintsForBackground = NSLayoutConstraint(item: self.background, attribute:.width, relatedBy: .equal, toItem: superView, attribute: .width, multiplier: 1, constant: 0)
         let heightConstraintForBackground = NSLayoutConstraint.init(item: self.background, attribute: .height, relatedBy: .equal, toItem: superView, attribute: .height, multiplier: 1, constant: 0)
         
-        NSLayoutConstraint.activate([horizontalContraintsAlertView, verticalContraintsAlertView,heightConstraintForAlertView, widthConstraintForAlertView,
+        NSLayoutConstraint.activate([alertCenterXConstraint, alertCenterYConstraint,heightConstraintForAlertView, widthConstraintForAlertView,
                                      verticalContraintsButtonBottom, heightConstraintForButtonBottom, widthConstraintForButtonBottom, pinContraintsButtonBottom,
                                      verticalContraintsForContainer, heightConstraintForContainer, widthConstraintForContainer, pinContraintsForContainer,
                                      widthContraintsForBackground, heightConstraintForBackground])
