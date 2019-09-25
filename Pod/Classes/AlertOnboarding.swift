@@ -82,8 +82,8 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
         //Update Color
         self.buttonBottom.backgroundColor = colorButtonBottomBackground
         self.backgroundColor = colorForAlertViewBackground
-        self.buttonBottom.setTitleColor(colorButtonText, for: UIControlState())
-        self.buttonBottom.setTitle(self.titleSkipButton, for: UIControlState())
+        self.buttonBottom.setTitleColor(colorButtonText, for: UIControl.State())
+        self.buttonBottom.setTitle(self.titleSkipButton, for: UIControl.State())
         
         self.container = AlertPageViewController(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription, alertView: self)
         self.container.delegate = self
@@ -196,22 +196,22 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
         self.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
         UIView.animate(withDuration: 1, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
             self.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }, completion: nil)
+        }, completion: nil)
     }
     
     fileprivate func animateForEnding(){
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.alpha = 0.0
-            }, completion: {
-                (finished: Bool) -> Void in
-                // On main thread
-                DispatchQueue.main.async {
-                    () -> Void in
-                    self.background.removeFromSuperview()
-                    self.removeFromSuperview()
-                    self.container.removeFromParentViewController()
-                    self.container.view.removeFromSuperview()
-                }
+        }, completion: {
+            (finished: Bool) -> Void in
+            // On main thread
+            DispatchQueue.main.async {
+                () -> Void in
+                self.background.removeFromSuperview()
+                self.removeFromSuperview()
+                self.container.removeFromParent()
+                self.container.view.removeFromSuperview()
+            }
         })
     }
     
@@ -239,7 +239,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
     //MARK: NOTIFICATIONS PROCESS ------------------------------------------
     fileprivate func interceptOrientationChange(){
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-        NotificationCenter.default.addObserver(self, selector: #selector(AlertOnboarding.onOrientationChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AlertOnboarding.onOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     @objc func onOrientationChange(){
